@@ -1,0 +1,29 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+#app {
+  height: 100vh;
+}
+
+.preview {
+  width: 100%;
+  height: auto;
+  transition: all ease .4s;
+  position: relative;
+}
+.preview p {
+	position: absolute;
+	padding: 5px;
+	background-color: rgba(0, 0, 0, 1);
+	color: #fff;
+	border: 1px solid #fff;
+	z-index: 1;
+	font-size: 1rem;
+}
+
+.innerSquare {
+	border: 1px solid #fff;
+	z-index: 1;
+	position: absolute;
+}
