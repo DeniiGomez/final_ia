@@ -2,22 +2,22 @@
   font-family: 'Roboto', sans-serif;
 }
 
-#app {
-  height: 100vh;
+
+.card-img {
+  height: 550px;
 }
 
 .preview {
-  width: 100%;
-  height: auto;
   transition: all ease .4s;
   position: relative;
+  overflow: hidden;
 }
 
-.preview img {
-  width: 100%;
+.card img {
+  cursor: pointer;
 }
 
-.preview p {
+.card p {
 	position: absolute;
 	padding: 5px;
 	background-color: #212529;

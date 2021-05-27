@@ -3,6 +3,7 @@ let flag = false
 const detect = async (e) => {
   try {
     const img = e.target
+    console.log(img)
     //load model
     const model = await cocoSsd.load()
     //classify the image
@@ -45,23 +46,60 @@ const detect = async (e) => {
   }
 }
 
-const handleClick = e => {
+const handleClick = _ => {
   //console.log(e.target)
-  if(!flag) return 
+  const images = document.querySelectorAll('#wrapper-images > div > .card > img') 
+  console.log(images)
 
-  detect(e)
+  if(images.length){
+    console.log(images)
+    for(let el of images) {
+      el.addEventListener('click', detect)
+    }
+  }
+  //detect(e)
 
 }
 
-const handleChange = e => {
-  const image = e.target.files[0]
-  const preview = document.querySelector('#preview-image')
-  preview.src = URL.createObjectURL(image)
-  flag = true
+const handleChange = (e) => {
+  
+  const images = e.target.files
+
+  const wrapper = document.querySelector('#wrapper-images')
+  wrapper.innerHTML = ''
+  
+  for(let el of images){
+    const col = document.createElement('div')
+    const card = document.createElement('div')
+    const img = document.createElement('img')
+    col.setAttribute('class', 'col-sm-6 col-md-4 col-lg-4 my-3')
+    card.setAttribute('class', 'rounded-2 shadow card')
+    img.setAttribute('class', 'img-fluid rounded-2')
+    img.setAttribute('crossorigin', 'anonymous')
+    img.setAttribute('src', URL.createObjectURL(el))
+    card.appendChild(img)
+    col.appendChild(card)
+    wrapper.appendChild(col)
+  }
+
+  const msnry = new Masonry(wrapper, {
+    resize: true,
+    percentPosition: true
+  })
+
+  imagesLoaded(wrapper).on('progress', () => {
+    msnry.layout()
+  })
+
+  handleClick()
 }
 
-const file = document.querySelector('#image-upload')
-const image = document.querySelector('#preview-image')
 
-file.addEventListener('change', handleChange)
-image.addEventListener('click', handleClick)
+window.addEventListener('load', (e) => {
+  const file = document.querySelector('#image-upload')
+  file.addEventListener('change', handleChange)
+  handleClick()
+  //image.addEventListener('click', handleClick)
+})
+
+
